@@ -1,0 +1,14 @@
+Partition Merge Status : Successful - Fri Oct 23 08:41:35 2020
+Quartus II 64-Bit Version : 15.0.0 Build 145 04/22/2015 SJ Full Version
+Revision Name : mcp2515
+Top-level Entity Name : mcp2515
+Family : Cyclone IV E
+Total logic elements : 272 / 6,272 ( 4 % )
+    Total combinational functions : 271 / 6,272 ( 4 % )
+    Dedicated logic registers : 71 / 6,272 ( 1 % )
+Total registers : 71
+Total pins : 9 / 180 ( 5 % )
+Total virtual pins : 0
+Total memory bits : 0 / 276,480 ( 0 % )
+Embedded Multiplier 9-bit elements : 0 / 30 ( 0 % )
+Total PLLs : 0 / 2 ( 0 % )

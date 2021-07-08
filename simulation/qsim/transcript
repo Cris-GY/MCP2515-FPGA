@@ -1,0 +1,42 @@
+# do mcp2515.do
+# ** Warning: (vlib-34) Library already exists at "work".
+# 
+# Model Technology ModelSim ALTERA vlog 10.3d Compiler 2014.10 Oct  7 2014
+# Start time: 09:50:38 on Oct 02,2020
+# vlog -work work mcp2515.vo 
+# -- Compiling module mcp2515
+# 
+# Top level modules:
+# 	mcp2515
+# End time: 09:50:39 on Oct 02,2020, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim ALTERA vlog 10.3d Compiler 2014.10 Oct  7 2014
+# Start time: 09:50:39 on Oct 02,2020
+# vlog -work work Waveform.vwf.vt 
+# -- Compiling module mcp2515_vlg_sample_tst
+# -- Compiling module mcp2515_vlg_check_tst
+# -- Compiling module mcp2515_vlg_vec_tst
+# 
+# Top level modules:
+# 	mcp2515_vlg_vec_tst
+# End time: 09:50:39 on Oct 02,2020, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vsim -c -do "mcp2515.do" 
+# Start time: 09:50:39 on Oct 02,2020
+# Loading work.mcp2515_vlg_vec_tst
+# Loading work.mcp2515
+# Loading cycloneive_ver.cycloneive_io_obuf
+# Loading cycloneive_ver.cycloneive_io_ibuf
+# Loading cycloneive_ver.cycloneive_clkctrl
+# Loading cycloneive_ver.cycloneive_mux41
+# Loading cycloneive_ver.cycloneive_ena_reg
+# Loading cycloneive_ver.cycloneive_lcell_comb
+# Loading altera_ver.dffeas
+# Loading work.mcp2515_vlg_sample_tst
+# Loading work.mcp2515_vlg_check_tst
+# Loading altera_ver.PRIM_GDFF_LOW
+# Simulation passed !
+# ** Note: $finish    : Waveform.vwf.vt(232)
+#    Time: 100 us  Iteration: 0  Instance: /mcp2515_vlg_vec_tst/tb_out
+# End time: 09:50:40 on Oct 02,2020, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0

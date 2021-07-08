@@ -1,0 +1,90 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dD:/CGY/Documents/quartus/mcp2515_test/simulation/qsim
+vmcp2515
+Z1 !s110 1601603439
+!i10b 1
+!s100 XYKfCV1?IW2Of?J:4;l]02
+IP2nTl_E5I^defLeN_9Qc;1
+Z2 V`JN@9S9cnhjKRR_L]QIcM3
+R0
+w1601603433
+8mcp2515.vo
+Fmcp2515.vo
+L0 32
+Z3 OV;L;10.3d;59
+r1
+!s85 0
+31
+!s108 1601603438.694000
+!s107 mcp2515.vo|
+!s90 -work|work|mcp2515.vo|
+!i113 1
+Z4 o-work work
+vmcp2515_vlg_check_tst
+R1
+!i10b 1
+!s100 80ZB^@laiLgkM1cn6T^9N1
+II[0U?6e8JT3QYJzBk:`mC0
+R2
+R0
+Z5 w1601603431
+Z6 8Waveform.vwf.vt
+Z7 FWaveform.vwf.vt
+L0 60
+R3
+r1
+!s85 0
+31
+Z8 !s108 1601603439.189000
+Z9 !s107 Waveform.vwf.vt|
+Z10 !s90 -work|work|Waveform.vwf.vt|
+!i113 1
+R4
+vmcp2515_vlg_sample_tst
+R1
+!i10b 1
+!s100 W?l6<MFO]?QAKBV<Ibd^`1
+IdZ0AF@@41=4c>JIbSD0zN3
+R2
+R0
+R5
+R6
+R7
+L0 30
+R3
+r1
+!s85 0
+31
+R8
+R9
+R10
+!i113 1
+R4
+vmcp2515_vlg_vec_tst
+R1
+!i10b 1
+!s100 ;hWQ^13XXfReR@NgJ27I>3
+I4XdE^5aH9AWN<[DfemRbn1
+R2
+R0
+R5
+R6
+R7
+L0 236
+R3
+r1
+!s85 0
+31
+R8
+R9
+R10
+!i113 1
+R4

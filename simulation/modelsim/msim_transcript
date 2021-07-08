@@ -1,0 +1,71 @@
+# Reading D:/soft/altera/15.0/modelsim/modelsim_ase/tcl/vsim/pref.tcl
+# do mcp2515_run_msim_rtl_verilog.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim PE vmap 10.3d Lib Mapping Utility 2014.10 Oct  7 2014
+# vmap -modelsim_quiet work rtl_work 
+# Copying D:/soft/altera/15.0/modelsim/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# ** Warning: Copied D:/soft/altera/15.0/modelsim/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini.
+#          Updated modelsim.ini.
+# 
+# vlog -vlog01compat -work work +incdir+D:/CGY/Documents/quartus/mcp2515_test {D:/CGY/Documents/quartus/mcp2515_test/mcp2515.v}
+# Model Technology ModelSim ALTERA vlog 10.3d Compiler 2014.10 Oct  7 2014
+# Start time: 19:00:49 on Oct 06,2020
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+D:/CGY/Documents/quartus/mcp2515_test" D:/CGY/Documents/quartus/mcp2515_test/mcp2515.v 
+# -- Compiling module mcp2515
+# 
+# Top level modules:
+# 	mcp2515
+# End time: 19:00:49 on Oct 06,2020, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vlog -vlog01compat -work work +incdir+D:/CGY/Documents/quartus/mcp2515_test {D:/CGY/Documents/quartus/mcp2515_test/mcp2515_tb.v}
+# Model Technology ModelSim ALTERA vlog 10.3d Compiler 2014.10 Oct  7 2014
+# Start time: 19:00:50 on Oct 06,2020
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+D:/CGY/Documents/quartus/mcp2515_test" D:/CGY/Documents/quartus/mcp2515_test/mcp2515_tb.v 
+# -- Compiling module mcp2515_tb
+# 
+# Top level modules:
+# 	mcp2515_tb
+# End time: 19:00:50 on Oct 06,2020, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cycloneive_ver -L rtl_work -L work -voptargs="+acc"  mcp2515_tb
+# vsim -gui "+altera" -l msim_transcript -do "mcp2515_run_msim_rtl_verilog.do" 
+# Start time: 19:00:50 on Oct 06,2020
+# Loading work.mcp2515_tb
+# Loading work.mcp2515
+# ** Warning: (vsim-3017) D:/CGY/Documents/quartus/mcp2515_test/mcp2515_tb.v(12): [TFMPC] - Too few port connections. Expected 9, found 7.
+# 
+#         Region: /mcp2515_tb/uut
+# ** Warning: (vsim-3722) D:/CGY/Documents/quartus/mcp2515_test/mcp2515_tb.v(12): [TFMPC] - Missing connection for port 'tx_flag'.
+# 
+# ** Warning: (vsim-3722) D:/CGY/Documents/quartus/mcp2515_test/mcp2515_tb.v(12): [TFMPC] - Missing connection for port 'mebg'.
+# 
+# 
+# add wave *
+# view structure
+# .main_pane.structure.interior.cs.body.struct
+# view signals
+# .main_pane.objects.interior.cs.body.tree
+# run -all
+add wave -position insertpoint  \
+sim:/mcp2515_tb/uut/rec_data
+restart
+# ** Warning: (vsim-3017) D:/CGY/Documents/quartus/mcp2515_test/mcp2515_tb.v(12): [TFMPC] - Too few port connections. Expected 9, found 7.
+# 
+#         Region: /mcp2515_tb/uut
+# ** Warning: (vsim-3722) D:/CGY/Documents/quartus/mcp2515_test/mcp2515_tb.v(12): [TFMPC] - Missing connection for port 'tx_flag'.
+# 
+# ** Warning: (vsim-3722) D:/CGY/Documents/quartus/mcp2515_test/mcp2515_tb.v(12): [TFMPC] - Missing connection for port 'mebg'.
+# 
+run -all
+# ** Note: $stop    : D:/CGY/Documents/quartus/mcp2515_test/mcp2515_tb.v(29)
+#    Time: 10000100 ns  Iteration: 0  Instance: /mcp2515_tb
+# Break in Module mcp2515_tb at D:/CGY/Documents/quartus/mcp2515_test/mcp2515_tb.v line 29
+# End time: 19:32:43 on Oct 06,2020, Elapsed time: 0:31:53
+# Errors: 0, Warnings: 6

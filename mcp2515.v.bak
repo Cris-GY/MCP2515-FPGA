@@ -1,0 +1,313 @@
+module mcp2515 (
+	clk50M,
+	CS,
+	SI,
+	SCK,
+	RST_N
+);
+
+input clk50M;
+output CS,SI,SCK;
+reg cc,sc,da,init,tx_flag,rx_flag,c_count,tx_empty;
+reg [7:0] cc_buff;
+reg [15:0] sc_buff;
+reg [4:0] state;
+reg [7:0] canlen_buff;
+reg [15:0] da_buff;
+parameter Resetmcp = 0, CNF1 = 1, CNF2 = 2, CNF3 = 3, TXB0SIDH = 4, TXB0SIDL = 5, RXB0CTRL = 6, RXB0DLC = 7, RXF0SIDH = 8, RXF0SIDL = 9, CANINTF = 10, CANINTE = 11, CANWORK = 12;
+
+always@( posedge clk50M )//分频
+begin
+	if( count >= 12'd249 )
+	begin
+		count <= 12'd0;
+		clk<= ~clk;
+	end
+	else count <= count + 1'b1;
+end 
+
+always @ (negedge SCK)
+begin
+	if (cc == 0)//发送控制命令
+		begin
+			CS <= 0;
+			SI <= cc_buff[7];
+		end
+	else if (sc == 0)//发送设置命令
+		begin
+			CS <= 0;
+			SI <= sc_buff[15]；
+		end
+	else if (dc == 0)//发送数据
+		begin
+			CS <= 0;
+			SI <= dc_buff[23];
+		end
+	else
+		CS <= 1;
+end
+
+always @ (posedge SCK or negedge RST_N)
+begin
+	if (~ RST_N)
+		begin
+			cc <= 1;
+			sc <= 1;
+			da <= 1;
+			init <= 1;
+			cc_buff <= 0;
+			sc_buff <= 0;
+			state <= 0;
+			canlen_buff <= 0;
+			da_buff <= 0;
+			tx_empty <= 0;
+			rx_flag <= 0;
+			c_count <= 0;
+		end
+	else
+		begin
+			if (cc == 1 && sc == 1 && init == 1)
+				begin
+					case (state)
+						Resetmcp://复位
+							begin
+								cc <= 0;
+								cc_buff <= 8'hC0;
+								state <= state + 1;
+								//需要延时1ms
+							end
+						CNF1://配置CNF1
+							begin
+								cc <= 0;
+								cc_buff <= 8'h02;;
+								sc <= 0;
+								sc_buff <= 16'h2A03;
+								state <= state + 1;
+							end
+						CNF2://配置CNF2
+							begin
+								cc <= 0;
+								cc_buff <= 8'h02;
+								sc <= 0;
+								sc_buff <= 16'h2990;
+								state <= state + 1;
+							end
+						CNF3://配置CNF3
+							begin
+								cc <= 0;
+								cc_buff <= 8'h02;
+								sc <= 0;
+								sc_buff <= 16'h2802;
+								state <= state + 1;
+							end
+						TXB0SIDH://发送标准标识符高位
+							begin
+								cc <= 0;
+								cc_buff <= 8'h02;
+								sc <= 0;
+								sc_buff <= 16'h31FF;
+								state <= state + 1;
+							end
+						TXB0SIDL://发送标准标识符低位
+							begin
+								cc <= 0;
+								cc_buff <= 8'h02;
+								sc <= 0;
+								sc_buff <= 16'h32A0;
+								state <= state + 1;
+							end
+						RXB0CTRL://接收标准标识符有效信息
+							begin
+								cc <= 0;
+								cc_buff <= 8'h02;
+								sc <= 0;
+								sc_buff <= 16'h6020;
+								state <= state + 1;
+							end
+						RXB0DLC://接收8个字节
+							begin
+								cc <= 0;
+								cc_buff <= 8'h02;
+								sc <= 0;
+								sc_buff <= 16'h6508;
+								state <= state + 1;
+							end
+						RXF0SIDH://验收滤波寄存器高位
+							begin
+								cc <= 0;
+								cc_buff <= 8'h02;
+								sc <= 0;
+								sc_buff <= 16'h00FF;
+								state <= state + 1;
+							end
+						RXF0SIDL://验收滤波寄存器低位
+							begin
+								cc <= 0;
+								cc_buff <= 8'h02;
+								sc <= 0;
+								sc_buff <= 16'h01E0;
+								state <= state + 1;
+							end
+						CANINTF://清空中断标志寄存器
+							begin
+								cc <= 0;
+								cc_buff <= 8'h02;
+								sc <= 0;
+								sc_buff <= 16'h2C00;
+								state <= state + 1;
+							end
+						CANINTE://接收缓存器0满中断
+							begin
+								cc <= 0;
+								cc_buff <= 8'h02;
+								sc <= 0;
+								sc_buff <= 16'h2B01;
+								state <= state + 1;
+							end
+						CANWORK://设置为正常模式
+							begin
+								cc <= 0;
+								cc_buff <= 8'h02;
+								sc <= 0;
+								sc_buff <= 16'h0F04;
+								state <= 0;
+								init <= 0;
+							end
+						default:
+							begin
+								cc <= 1;
+								sc <= 1;
+								init <= 1;
+							end
+					endcase
+				end
+			else if (~ cc)
+				begin
+					if (c_count < 6'd7)//从高到低顺序左移
+						begin
+							cc_buff <= cc_buff << 1;
+							c_count <= c_count + 1;
+						end
+					else
+						begin
+							cc_buff <= 0;
+							c_count <= 0;
+							cc <= 1;
+							
+						end
+				end
+			else if (~ sc)
+				begin
+					if (c_count < 6'd15)//从高到低顺序左移
+						begin
+							sc_buff <= sc_buff << 1;
+							c_count <= c_count + 1;
+						end
+					else
+						begin
+							sc_buff <= 0;
+							c_count <= 0;
+							sc <= 1;
+						end
+				end
+			else if (cc == 1 && sc == 1 && tx_flag == 1)
+				begin
+					tx_empty <= 0;
+					case (state)
+						CANSENDLEN://数据长度写入寄存器
+							begin
+								cc <= 0;
+								cc_buff <= 8'h02;
+								sc <= 0;
+								sc_buff <= {8'h35,8'd8};
+							end
+						CANSENDDATA0://0字节写入寄存器
+							begin
+								cc <= 0;
+								cc_buff <= 8'h02;
+								da <= 0;
+								da_buff <= {8'h36,8'h31};
+							end
+						CANSENDDATA1://1字节写入寄存器
+							begin
+								cc <= 0;
+								cc_buff <= 8'h02;
+								da <= 0;
+								da_buff <= {8'h37,8'h32};
+							end
+						CANSENDDATA2://2字节写入寄存器
+							begin
+								cc <= 0;
+								cc_buff <= 8'h02;
+								da <= 0;
+								da_buff <= {8'h38,8'h33};
+							end
+						CANSENDDATA3://3字节写入寄存器
+							begin
+								cc <= 0;
+								cc_buff <= 8'h02;
+								da <= 0;
+								da_buff <= {8'h39,8'h34};
+							end
+						CANSENDDATA4://4字节写入寄存器
+							begin
+								cc <= 0;
+								cc_buff <= 8'h02;
+								da <= 0;
+								da_buff <= {8'h3A,8'h35};
+							end
+						CANSENDDATA5://5字节写入寄存器
+							begin
+								cc <= 0;
+								cc_buff <= 8'h02;
+								da <= 0;
+								da_buff <= {8'h3B,8'h36};
+							end
+						CANSENDDATA6://6字节写入寄存器
+							begin
+								cc <= 0;
+								cc_buff <= 8'h02;
+								da <= 0;
+								da_buff <= {8'h3C,8'h37};
+							end
+						CANSENDDATA7://7字节写入 寄存器
+							begin
+								cc <= 0;
+								cc_buff <= 8'h02;
+								da <= 0;
+								da_buff <= {8'h3D,8'h38};
+							end
+						CANSENDQUE://发送命令
+							begin
+								//if ()//读取标志位
+								cc <= 0;
+								cc_buff <= 8'h81;
+								tx_flag <= 0;
+								state <= 0;
+							end
+						default:
+							tx_flag  <= 0;
+					endcase
+				end
+			else if (~ da)
+				begin
+					if (c_count < 6'd15)
+						begin
+							da_buff <= da_buff << 1;
+							c_count <= count + 1;
+						end
+					else
+						begin
+							da_buff <= 0;
+							c_count <= 0;
+							da <= 1;
+							state <= state + 1;
+						end
+				end
+			else
+				begin
+					tx_empty <= 1;
+				end
+		end
+end
+endmodule

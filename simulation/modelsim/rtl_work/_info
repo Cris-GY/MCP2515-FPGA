@@ -1,0 +1,52 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dD:/CGY/Documents/quartus/mcp2515_test/simulation/modelsim
+vmcp2515
+!s110 1601982049
+!i10b 1
+!s100 S:hA7EKo1V`C]z<5;9N=51
+Id5ZIT_CF>4Y_nLQ0oiH813
+Z1 V`JN@9S9cnhjKRR_L]QIcM3
+R0
+w1601896290
+8D:/CGY/Documents/quartus/mcp2515_test/mcp2515.v
+FD:/CGY/Documents/quartus/mcp2515_test/mcp2515.v
+L0 8
+Z2 OV;L;10.3d;59
+r1
+!s85 0
+31
+!s108 1601982049.503000
+!s107 D:/CGY/Documents/quartus/mcp2515_test/mcp2515.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/CGY/Documents/quartus/mcp2515_test|D:/CGY/Documents/quartus/mcp2515_test/mcp2515.v|
+!i113 1
+Z3 o-vlog01compat -work work
+Z4 !s92 -vlog01compat -work work +incdir+D:/CGY/Documents/quartus/mcp2515_test
+vmcp2515_tb
+!s110 1601982050
+!i10b 1
+!s100 WIGf@6=Jl1?bZ1]S;<LZX1
+In`@k<i[XzcM;FA=:z0>Xf2
+R1
+R0
+w1601897505
+8D:/CGY/Documents/quartus/mcp2515_test/mcp2515_tb.v
+FD:/CGY/Documents/quartus/mcp2515_test/mcp2515_tb.v
+L0 3
+R2
+r1
+!s85 0
+31
+!s108 1601982050.597000
+!s107 D:/CGY/Documents/quartus/mcp2515_test/mcp2515_tb.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/CGY/Documents/quartus/mcp2515_test|D:/CGY/Documents/quartus/mcp2515_test/mcp2515_tb.v|
+!i113 1
+R3
+R4
